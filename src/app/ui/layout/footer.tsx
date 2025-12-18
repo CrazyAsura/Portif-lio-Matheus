@@ -94,16 +94,16 @@ export default function Footer() {
               bgcolor: "#fffbeb", 
               border: "1px solid #fde68a", 
               borderRadius: "20px", 
-              p: 3, 
+              p: { xs: 2, sm: 3 }, 
               mb: 4,
               display: "flex",
               flexDirection: { xs: "column", sm: "row" },
-              alignItems: "center",
+              alignItems: { xs: "flex-start", sm: "center" },
               gap: 2
             }}
           >
             <AlertCircle size={24} className="text-amber-600 shrink-0" />
-            <Typography variant="caption" sx={{ color: "#92400e", fontWeight: 500, lineHeight: 1.6, textAlign: "left" }}>
+            <Typography variant="caption" sx={{ color: "#92400e", fontWeight: 500, lineHeight: 1.6, textAlign: "left", fontSize: { xs: "0.75rem", sm: "0.8rem" } }}>
               <strong>Aviso Ético:</strong> Este é um portfólio acadêmico. Matheus Mendonça é estudante de graduação em Psicologia (UniNassau) e suas atividades práticas ocorrem estritamente sob supervisão docente, conforme as diretrizes do CRP. Não realiza atendimentos clínicos autônomos.
             </Typography>
           </Box>

@@ -153,7 +153,7 @@ export default function Navbar() {
         open={isMobileMenuOpen}
         onClose={toggleMobileMenu(false)}
         PaperProps={{
-          sx: { width: "280px", borderRadius: "24px 0 0 24px", p: 2 }
+          sx: { width: { xs: "100%", sm: "320px" }, borderRadius: { xs: 0, sm: "24px 0 0 24px" }, p: 2 }
         }}
       >
         <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
