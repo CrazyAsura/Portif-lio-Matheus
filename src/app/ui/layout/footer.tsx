@@ -51,7 +51,14 @@ export default function Footer() {
             >
               <Brain size={24} />
             </Box>
-            <Typography variant="h6" sx={{ fontWeight: 800, letterSpacing: -0.5 }}>
+            <Typography 
+              variant="h6" 
+              sx={{ 
+                fontWeight: 800, 
+                letterSpacing: -0.5,
+                fontSize: { xs: '1rem', sm: '1.25rem' }
+              }}
+            >
               Matheus Mendonça Trindade
             </Typography>
           </Box>

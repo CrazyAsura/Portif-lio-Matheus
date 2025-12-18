@@ -17,16 +17,19 @@ import {
   Container,
   useScrollTrigger
 } from "@mui/material";
-import { Brain, Menu, X, MessageCircle, Info, Map, Sparkles } from "lucide-react";
+import { Brain, Menu, X, MessageCircle, Info, Map, Sparkles, Target } from "lucide-react";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   // Efeito de rolagem para mudar a aparência do header
   useEffect(() => {
+    setMounted(true);
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Initial check
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -37,25 +40,33 @@ export default function Navbar() {
 
   const navLinks = [
     { name: "Sobre", href: "#sobre", icon: <Info size={20} /> },
+    { name: "Foco", href: "#highlights", icon: <Target size={20} /> },
     { name: "Interesses", href: "#interests", icon: <Sparkles size={20} /> },
     { name: "Trajetória", href: "#trajetoria", icon: <Map size={20} /> },
   ];
+
+  // Prevenir erros de hidratação garantindo que o render inicial seja consistente
+  const currentScrolled = mounted ? scrolled : false;
 
   return (
     <>
       <AppBar 
         position="fixed" 
-        elevation={scrolled ? 4 : 0}
+        elevation={currentScrolled ? 4 : 0}
         sx={{
-          backgroundColor: scrolled ? "rgba(255, 255, 255, 0.85)" : "transparent",
-          backdropFilter: scrolled ? "blur(12px)" : "none",
+          backgroundColor: currentScrolled ? "rgba(255, 255, 255, 0.9)" : "rgba(255, 255, 255, 0)",
+          backdropFilter: currentScrolled ? "blur(12px)" : "none",
           transition: "all 0.3s ease-in-out",
-          borderBottom: scrolled ? "1px solid rgba(0,0,0,0.05)" : "none",
-          color: "text.primary"
+          borderBottom: currentScrolled ? "1px solid rgba(0,0,0,0.08)" : "none",
+          color: "text.primary",
+          // Forçar renderização como header para consistência SSR
+          '&.MuiAppBar-root': {
+            backgroundImage: 'none'
+          }
         }}
       >
         <Container maxWidth="lg">
-          <Toolbar sx={{ justifyContent: "space-between", py: scrolled ? 0.5 : 1.5 }}>
+          <Toolbar sx={{ justifyContent: "space-between", py: currentScrolled ? 0.5 : 1.5, transition: "padding 0.3s ease" }}>
             
             {/* Logo */}
             <Box 
@@ -73,13 +84,12 @@ export default function Navbar() {
               <Box 
                 className="logo-icon"
                 sx={{ 
-                  bgcolor: "emerald.600", 
+                  bgcolor: "#059669", 
                   color: "white", 
                   p: 0.8, 
                   borderRadius: "12px", 
                   display: "flex", 
                   transition: "transform 0.3s ease",
-                  backgroundColor: "#059669" 
                 }}
               >
                 <Brain size={24} />
@@ -89,11 +99,12 @@ export default function Navbar() {
                 sx={{ 
                   fontWeight: 800, 
                   letterSpacing: -0.5, 
-                  fontSize: { xs: "1.1rem", md: "1.3rem" },
-                  display: { xs: "none", sm: "block" }
+                  fontSize: { xs: "1rem", sm: "1.2rem", md: "1.3rem" },
+                  display: { xs: "block", sm: "block" } // Mostrar em todos para melhor branding
                 }}
               >
-                Matheus Mendonça
+                <span className="hidden xs:inline">Matheus Mendonça</span>
+                <span className="xs:hidden">Matheus M.</span>
               </Typography>
             </Box>
 
@@ -201,8 +212,7 @@ export default function Navbar() {
         </List>
       </Drawer>
       
-      {/* Spacer para não deixar o conteúdo sumir atrás do header */}
-      <Box sx={{ height: { xs: "70px", md: "90px" } }} />
+      {/* Spacer removido para permitir que o Hero controle o layout inicial */}
     </>
   );
 }
