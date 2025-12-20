@@ -59,7 +59,7 @@ export default function Social() {
           <Button 
             variant="contained" 
             size="large"
-            href="mailto:matheus.m.trindade@outlook.com"
+            href="mailto:matheusmt33@hotmail.com"
             startIcon={<Mail size={20} />}
             sx={{ borderRadius: '50px', px: 4, py: 1.5, textTransform: 'none', fontSize: '1.1rem', bgcolor: '#059669', '&:hover': { bgcolor: '#047857' } }}
           >
@@ -68,7 +68,7 @@ export default function Social() {
           <Button 
             variant="outlined" 
             size="large"
-            href="https://wa.me/5579996680000"
+            href="https://wa.me/557998800593"
             target="_blank"
             rel="noopener noreferrer"
             startIcon={<MessageCircle size={20} />}
